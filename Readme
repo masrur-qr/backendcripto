@@ -1,0 +1,4 @@
+go mod init test/repo
+go get github.com/gin-gonic/gin
+go get "golang.org/x/crypto/bcrypt"
+go get "go.mongodb.org/mongo-driver/mongo"
