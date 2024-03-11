@@ -98,3 +98,15 @@ func CompareHashPasswords(HashedPasswordFromDB, PasswordToCampare string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(HashedPasswordFromDB), []byte(PasswordToCampare))
 	return err == nil
 }
+
+// ? ============ Handle Cors
+func Cors(c *gin.Context)  {
+	c.Writer.Header().Set("Access-Control-Allow-Origin","http://   :5500")
+	c.Writer.Header().Set("Access-Control-Allow-Headers","Content-Type")
+
+	if c.Request.Method == "OPTIONS" {
+		c.AbortWithStatus(200)
+	}
+
+	c.Next()
+}
