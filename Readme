@@ -2,3 +2,16 @@ go mod init test/repo
 go get github.com/gin-gonic/gin
 go get "golang.org/x/crypto/bcrypt"
 go get "go.mongodb.org/mongo-driver/mongo"
+
+[{
+  "_id": "65eeda7df105a19a6fc97043",
+  "product_name": "BitCoin",
+  "product_price": 12,
+  "product_amount": 100
+},
+{
+  "_id": "65eedad2f105a19a6fc97044",
+  "product_name": "Emma",
+  "product_price": 22,
+  "product_amount": 100
+}]
