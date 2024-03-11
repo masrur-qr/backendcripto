@@ -49,7 +49,7 @@ func Login(c *gin.Context) {
 	} else {
 		client, ctx := DBConnection()
 
-		DBConnect := client.Database("MasDB").Collection("Soos")
+		DBConnect := client.Database("MasrurCoins").Collection("Users")
 
 		result := DBConnect.FindOne(ctx, bson.M{
 			"login": LoginTemp.Login,
@@ -58,16 +58,19 @@ func Login(c *gin.Context) {
 		var userdata structs.SignUpStruct
 		result.Decode(&userdata)
 		isValidPass := CompareHashPasswords(userdata.Password,LoginTemp.Password)
+		fmt.Println(isValidPass)
 
 		if isValidPass {
 			http.SetCookie(c.Writer, &http.Cookie{
 				Name: "CoinCookie",
 				Value: userdata.Login,
 				Expires: time.Now().Add(60*time.Second),
+				Secure: false,
+				SameSite: http.SameSiteLaxMode,
 			})
 			c.JSON(200,"success")
 		}else{
-			c.JSON(404,"Error")
+			c.JSON(404,"Wrong login or password")
 		}
 	}
 }
@@ -101,8 +104,10 @@ func CompareHashPasswords(HashedPasswordFromDB, PasswordToCampare string) bool {
 
 // ? ============ Handle Cors
 func Cors(c *gin.Context)  {
-	c.Writer.Header().Set("Access-Control-Allow-Origin","http://   :5500")
+	c.Writer.Header().Set("Access-Control-Allow-Origin","http://192.168.43.246:5500")
 	c.Writer.Header().Set("Access-Control-Allow-Headers","Content-Type")
+	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+
 
 	if c.Request.Method == "OPTIONS" {
 		c.AbortWithStatus(200)

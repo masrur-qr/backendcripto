@@ -10,6 +10,8 @@ import (
 func main() {
 	r := gin.Default()
 
+	r.Use(controllers.Cors)
+
 	r.POST("/signup", controllers.Signup)
 	r.POST("/login",controllers.Login)
 
